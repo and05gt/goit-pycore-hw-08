@@ -52,14 +52,14 @@ def show_phone(args: list, book: AddressBook) -> str:
     name = args[0]
     record = book.find(name)
     if record:
-        return record.phones[0].value
+        return record
     else:
         raise KeyError()
 
 @input_error
 def show_all(_, book: AddressBook) -> str:
     if book:
-        return "\n".join(f"{name}: {record.phones[0].value}" for name, record in book.items())
+        return "\n".join(f"{record}" for _, record in book.items())
     else:
         return "No contacts found."
     
@@ -89,7 +89,7 @@ def show_birthday(args: list, book: AddressBook) -> str:
         raise KeyError()
     
 @input_error
-def birthdays(_args: list, book: AddressBook):
+def birthdays(_, book: AddressBook):
     upcoming_birthdays = book.get_upcoming_birthdays()
     if upcoming_birthdays:
         return upcoming_birthdays
